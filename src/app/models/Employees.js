@@ -8,6 +8,8 @@ class Employees extends Model {
         dateBirth: Sequelize.DATE,
         cpf: Sequelize.INTEGER,
         salary: Sequelize.DOUBLE,
+        dateEntry: Sequelize.DATE,
+        dateExit: Sequelize.DATE,
       },
       {
         sequelize,
