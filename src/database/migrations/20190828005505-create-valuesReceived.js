@@ -1,13 +1,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('valuesReceived', {
+    return queryInterface.createTable('values_received', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      client: {
+      client_id: {
         type: Sequelize.INTEGER,
         references: { model: 'client', key: 'id' },
         onUpdate: 'CASCADE',
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('valuesReceived');
+    return queryInterface.dropTable('values_received');
   },
 };
