@@ -17,11 +17,11 @@ class Spending extends Model {
 
   static associate(models) {
     this.belongsTo(models.SpendingTypes, {
-      foreignKey: 'spendType',
+      foreignKey: 'spendType_id',
       as: 'spendType',
     });
     this.belongsTo(models.Client, {
-      foreignKey: 'client',
+      foreignKey: 'client_id',
       as: 'client',
     });
   }
