@@ -4,8 +4,8 @@ import User from '../app/models/User';
 import Employees from '../app/models/Employees';
 import Client from '../app/models/Client';
 import ReportHistory from '../app/models/ReportHistory';
-import Spending from '../app/models/Spending';
-import Spendingtypes from '../app/models/Spendingtypes';
+import Spendings from '../app/models/Spendings';
+import Spendingtypes from '../app/models/SpendingTypes';
 import ValuesReceived from '../app/models/ValuesReceived';
 
 import databaseConfig from '../config/database';
@@ -15,7 +15,7 @@ const models = [
   Employees,
   Client,
   ReportHistory,
-  Spending,
+  Spendings,
   Spendingtypes,
   ValuesReceived,
 ];
