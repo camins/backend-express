@@ -4,7 +4,7 @@ import Spendings from '../models/Spendings';
 
 class SpendingTypesController {
   async store(req, res) {
-    if (await SpendingTypesValidation.isValid(req)) {
+    if (await SpendingTypesValidation.validate(req)) {
       return res.status(400).json({ error: 'Erro na Validação' });
     }
 
@@ -22,7 +22,7 @@ class SpendingTypesController {
   }
 
   async update(req, res) {
-    if (await SpendingTypesValidation.isValid(req)) {
+    if (await SpendingTypesValidation.validate(req)) {
       return res.status(400).json({ error: 'Erro na Validação' });
     }
 

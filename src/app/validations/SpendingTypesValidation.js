@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import SpendingTypes from '../models/SpendingTypes';
 
 class SpendingTypesValidation {
-  async isValid(req) {
+  async validate(req) {
     const schema = Yup.object().shape({
       descricao: Yup.string().required(),
     });

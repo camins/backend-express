@@ -10,7 +10,6 @@ import SpendingTypesController from './app/controllers/SpendingTypesController';
 const routes = new Router();
 
 routes.post('/users', UserController.store);
-routes.post('/employees', EmployeesController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
@@ -20,5 +19,10 @@ routes.post('/spendingtypes', SpendingTypesController.store);
 routes.put('/spendingtypes/:id', SpendingTypesController.update);
 routes.get('/spendingtypes/', SpendingTypesController.index);
 routes.delete('/spendingtypes/:id', SpendingTypesController.delete);
+
+routes.post('/employees', EmployeesController.store);
+routes.put('/employees/:id', EmployeesController.update);
+routes.get('/employees', EmployeesController.index);
+routes.delete('/employees/:id', EmployeesController.delete);
 
 export default routes;

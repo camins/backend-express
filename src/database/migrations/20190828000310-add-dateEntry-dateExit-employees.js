@@ -1,11 +1,11 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
-      queryInterface.addColumn('employees', 'dateEntry', {
+      queryInterface.addColumn('employees', 'date_entry', {
         type: Sequelize.DATE,
         allowNull: false,
       }),
-      queryInterface.addColumn('employees', 'dateExit', {
+      queryInterface.addColumn('employees', 'date_exit', {
         type: Sequelize.DATE,
         allowNull: true,
       }),
