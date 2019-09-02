@@ -1,23 +1,26 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('client', {
+    return queryInterface.createTable('values_receiveds', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      nome: {
-        type: Sequelize.STRING,
+      client_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'client', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
         allowNull: false,
       },
-      dateEntry: {
+      date: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      dateExit: {
-        type: Sequelize.DATE,
-        allowNull: true,
+      value: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -31,6 +34,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('client');
+    return queryInterface.dropTable('values_receiveds');
   },
 };
