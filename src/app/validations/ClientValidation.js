@@ -17,18 +17,18 @@ class ClientsValidation {
     });
 
     if (!ret) {
-      const { name } = req.body;
+      const { name, dateEntry } = req.body;
 
       const client = await Client.findOne({
         where: {
           name,
           dateEntry: {
-            [Op.lte]: new Date(),
+            [Op.lte]: dateEntry,
           },
           dateExit: {
             [Op.or]: {
               [Op.eq]: null,
-              [Op.gte]: new Date(),
+              [Op.gte]: dateEntry,
             },
           },
         },
@@ -55,8 +55,8 @@ class ClientsValidation {
       ret = err.errors;
     });
 
-    if (!ret) {
-      const { name } = req.body;
+    const { name } = req.body;
+    if (!ret && name) {
       const client = await Client.findOne({
         where: {
           id: {

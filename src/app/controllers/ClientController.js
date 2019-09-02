@@ -1,5 +1,7 @@
+import { isAfter, parseISO } from 'date-fns';
 import Client from '../models/Client';
 import ClientValidation from '../validations/ClientValidation';
+import ValuesReceived from '../models/ValuesReceived';
 
 class ClientController {
   async store(req, res) {
@@ -8,9 +10,9 @@ class ClientController {
       return res.status(400).json(isVal);
     }
 
-    const client = await Client.create(req.body);
+    const { id, name, dateEntry, dateExit } = await Client.create(req.body);
 
-    return res.json(client);
+    return res.json({ id, name, dateEntry, dateExit });
   }
 
   async update(req, res) {
@@ -20,6 +22,13 @@ class ClientController {
     }
 
     const client = await Client.findByPk(req.params.id);
+    const hasDateExit = req.body.dateExit;
+
+    if (hasDateExit && !isAfter(parseISO(hasDateExit), client.dateEntry)) {
+      return res
+        .status(401)
+        .json('A data de saída não pode ser anterior a data de chegada');
+    }
 
     if (!client) {
       return res.status(400).json('Cliente não encontrado');
@@ -53,6 +62,17 @@ class ClientController {
     if (!client) {
       return res.status(400).json({
         error: 'Funcionário não encontrado',
+      });
+    }
+
+    const values = await ValuesReceived.findOne({
+      where: { client_id: client.id },
+    });
+
+    if (values) {
+      return res.status(401).json({
+        error:
+          'O cliente não pode ser excluído pois existem valores recebidos desse cliente',
       });
     }
 

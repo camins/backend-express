@@ -9,7 +9,7 @@ module.exports = {
       },
       client_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'client', key: 'id' },
+        references: { model: 'clients', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: false,

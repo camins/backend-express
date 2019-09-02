@@ -4,7 +4,7 @@ class Client extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome: Sequelize.STRING,
+        name: Sequelize.STRING,
         dateEntry: Sequelize.DATE,
         dateExit: Sequelize.DATE,
       },
