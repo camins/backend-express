@@ -4,23 +4,15 @@ import EmployeesValidation from '../validations/EmployeesValidation';
 class EmployeesController {
   async store(req, res) {
     const isVal = await EmployeesValidation.validateInsert(req);
-    if (isVal) {
+    if (isVal.lenght) {
       return res.status(400).json(isVal);
-    }
-
-    const { cpf } = req.body;
-    const employee = await Employees.findOne({ where: { cpf } });
-
-    if (employee) {
-      return res
-        .status(401)
-        .json({ error: 'Já existe um usuário com esse cpf' });
     }
 
     const {
       id,
       name,
       dateBirth,
+      cpf,
       salary,
       dateEntry,
       dateExit,
@@ -44,8 +36,6 @@ class EmployeesController {
     }
 
     const employee = await Employees.findByPk(req.params.id);
-
-    console.log(req.params.id);
 
     if (!employee) {
       return res.status(400).json('Funcionário não encontrado');

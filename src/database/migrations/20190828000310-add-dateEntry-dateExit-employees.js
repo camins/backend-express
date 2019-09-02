@@ -14,8 +14,8 @@ module.exports = {
 
   down: queryInterface => {
     return Promise.all([
-      queryInterface.removeColumn('employees', 'dateEntry'),
-      queryInterface.removeColumn('employees', 'dateExit'),
+      queryInterface.removeColumn('employees', 'date_entry'),
+      queryInterface.removeColumn('employees', 'date_exit'),
     ]);
   },
 };

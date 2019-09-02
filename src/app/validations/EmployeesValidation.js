@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import Employees from '../models/Employees';
 
 class EmployeesValidation {
   async validateInsert(req) {
@@ -18,6 +19,15 @@ class EmployeesValidation {
     await schema.validate(req.body, { abortEarly: false }).catch(err => {
       ret = err.errors;
     });
+
+    if (!ret) {
+      const { cpf } = req.body;
+      const employee = await Employees.findOne({ where: { cpf } });
+
+      if (employee) {
+        ret = 'Já existe um usuário com esse cpf';
+      }
+    }
 
     return ret;
   }
