@@ -9,8 +9,14 @@ class ClientController {
     if (isVal) {
       return res.status(400).json(isVal);
     }
+    const { dateEntry, dateExit } = req.body;
 
-    const { id, name, dateEntry, dateExit } = await Client.create(req.body);
+    if (dateExit && !isAfter(parseISO(dateExit), parseISO(dateEntry))) {
+      return res
+        .status(401)
+        .json('A data de saída não pode ser anterior a data de chegada');
+    }
+    const { id, name } = await Client.create(req.body);
 
     return res.json({ id, name, dateEntry, dateExit });
   }
