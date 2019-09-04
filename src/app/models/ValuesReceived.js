@@ -17,7 +17,7 @@ class ValuesReceived extends Model {
 
   static associate(models) {
     this.belongsTo(models.Client, {
-      foreignKey: 'client',
+      foreignKey: 'client_id',
       as: 'client',
     });
   }

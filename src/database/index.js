@@ -1,10 +1,10 @@
 import Sequelize from 'sequelize';
 
 import User from '../app/models/User';
-import Employees from '../app/models/Employees';
+import Employee from '../app/models/Employee';
 import Client from '../app/models/Client';
 import ReportHistory from '../app/models/ReportHistory';
-import Spendings from '../app/models/Spendings';
+import Spending from '../app/models/Spending';
 import Spendingtypes from '../app/models/SpendingTypes';
 import ValuesReceived from '../app/models/ValuesReceived';
 
@@ -12,10 +12,10 @@ import databaseConfig from '../config/database';
 
 const models = [
   User,
-  Employees,
+  Employee,
   Client,
   ReportHistory,
-  Spendings,
+  Spending,
   Spendingtypes,
   ValuesReceived,
 ];
@@ -27,7 +27,9 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig);
 
-    models.map(model => model.init(this.connection));
+    models
+      .map(model => model.init(this.connection))
+      .map(model => model.associate && model.associate(this.connection.models));
   }
 }
 

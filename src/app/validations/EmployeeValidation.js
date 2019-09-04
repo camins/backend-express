@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import Employees from '../models/Employees';
+import Employee from '../models/Employee';
 
-class EmployeesValidation {
+class EmployeeValidation {
   async validateInsert(req) {
     let ret;
 
@@ -22,7 +22,7 @@ class EmployeesValidation {
 
     if (!ret) {
       const { cpf } = req.body;
-      const employee = await Employees.findOne({ where: { cpf } });
+      const employee = await Employee.findOne({ where: { cpf } });
 
       if (employee) {
         ret = 'Já existe um usuário com esse cpf';
@@ -51,4 +51,4 @@ class EmployeesValidation {
   }
 }
 
-export default new EmployeesValidation();
+export default new EmployeeValidation();

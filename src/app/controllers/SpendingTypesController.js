@@ -1,6 +1,6 @@
 import SpendingTypesValidation from '../validations/SpendingTypesValidation';
 import SpendingTypes from '../models/SpendingTypes';
-import Spendings from '../models/Spendings';
+import Spending from '../models/Spending';
 
 class SpendingTypesController {
   async store(req, res) {
@@ -61,7 +61,7 @@ class SpendingTypesController {
       });
     }
 
-    const spend = await Spendings.findOne({
+    const spend = await Spending.findOne({
       where: { spendType_id: spendingType.id },
     });
 

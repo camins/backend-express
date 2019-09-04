@@ -1,11 +1,12 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Spendings extends Model {
+class Spending extends Model {
   static init(sequelize) {
     super.init(
       {
         date: Sequelize.DATE,
         value: Sequelize.DOUBLE,
+        comment: Sequelize.STRING,
       },
       {
         sequelize,
@@ -17,8 +18,8 @@ class Spendings extends Model {
 
   static associate(models) {
     this.belongsTo(models.SpendingTypes, {
-      foreignKey: 'spendType_id',
-      as: 'spendType',
+      foreignKey: 'type_id',
+      as: 'type',
     });
     this.belongsTo(models.Client, {
       foreignKey: 'client_id',
@@ -27,4 +28,4 @@ class Spendings extends Model {
   }
 }
 
-export default Spendings;
+export default Spending;

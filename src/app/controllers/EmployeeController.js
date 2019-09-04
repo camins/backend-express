@@ -1,10 +1,10 @@
-import Employees from '../models/Employees';
-import EmployeesValidation from '../validations/EmployeesValidation';
+import Employee from '../models/Employee';
+import EmployeeValidation from '../validations/EmployeeValidation';
 
-class EmployeesController {
+class EmployeeController {
   async store(req, res) {
-    const isVal = await EmployeesValidation.validateInsert(req);
-    if (isVal.lenght) {
+    const isVal = await EmployeeValidation.validateInsert(req);
+    if (isVal) {
       return res.status(400).json(isVal);
     }
 
@@ -16,7 +16,7 @@ class EmployeesController {
       salary,
       dateEntry,
       dateExit,
-    } = await Employees.create(req.body);
+    } = await Employee.create(req.body);
 
     return res.json({
       id,
@@ -30,12 +30,12 @@ class EmployeesController {
   }
 
   async update(req, res) {
-    const isVal = await EmployeesValidation.validateUpdate(req);
+    const isVal = await EmployeeValidation.validateUpdate(req);
     if (isVal) {
       return res.status(400).json(isVal);
     }
 
-    const employee = await Employees.findByPk(req.params.id);
+    const employee = await Employee.findByPk(req.params.id);
 
     if (!employee) {
       return res.status(400).json('Funcionário não encontrado');
@@ -65,7 +65,7 @@ class EmployeesController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
-    const employee = await Employees.findAll({
+    const employee = await Employee.findAll({
       limit: 20,
       offset: (page - 1) * 20,
       order: ['name'],
@@ -75,7 +75,7 @@ class EmployeesController {
   }
 
   async delete(req, res) {
-    const employee = await Employees.findByPk(req.params.id);
+    const employee = await Employee.findByPk(req.params.id);
 
     if (!employee) {
       return res.status(400).json({
@@ -89,4 +89,4 @@ class EmployeesController {
   }
 }
 
-export default new EmployeesController();
+export default new EmployeeController();

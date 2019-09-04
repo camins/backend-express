@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      spendType_id: {
+      type_id: {
         type: Sequelize.INTEGER,
         references: { model: 'spending_types', key: 'id' },
         onUpdate: 'CASCADE',
@@ -19,11 +19,15 @@ module.exports = {
         references: { model: 'clients', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
-        allowNull: false,
+        allowNull: true,
       },
       date: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      comment: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       value: {
         type: Sequelize.DOUBLE,
