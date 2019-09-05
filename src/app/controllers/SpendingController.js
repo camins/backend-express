@@ -48,6 +48,56 @@ class SpendingController {
     const spendNew = await Spending.create(req.body);
     return res.json(spendNew);
   }
+
+  async update(req, res) {
+    const isVal = await SpendingValidation.validateUpdate(req);
+    if (isVal) {
+      return res.status(400).json(isVal);
+    }
+
+    const spending = await Spending.findByPk(req.params.id);
+
+    const spendingUpdate = await spending.update(req.body);
+    return res.json(spendingUpdate);
+  }
+
+  async index(req, res) {
+    const { date } = req.query;
+    const { page = 1 } = req.query;
+
+    const spending = await Spending.findAll({
+      where: {
+        date: {
+          [Op.gte]: startOfDay(parseISO(date)),
+        },
+      },
+      include: [
+        {
+          model: SpendingType,
+          as: 'type',
+          attributes: ['descricao'],
+        },
+      ],
+      limit: 20,
+      offset: (page - 1) * 20,
+      order: ['date'],
+    });
+
+    return res.json(spending);
+  }
+
+  async delete(req, res) {
+    const spending = await Spending.findByPk(req.params.id);
+
+    const isValid = await SpendingValidation.checkHistory(spending);
+    if (isValid) {
+      return res.status(400).json(isValid);
+    }
+
+    await spending.destroy();
+
+    return res.json({ sucess: 'Item excluído com sucesso' });
+  }
 }
 
 export default new SpendingController();

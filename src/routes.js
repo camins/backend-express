@@ -33,5 +33,8 @@ routes.get('/client/', ClientController.index);
 routes.delete('/client/:id', ClientController.delete);
 
 routes.post('/spending', SpendingController.store);
+routes.put('/spending/:id', SpendingController.update);
+routes.get('/spending', SpendingController.index);
+routes.delete('/spending/:id', SpendingController.delete);
 
 export default routes;
