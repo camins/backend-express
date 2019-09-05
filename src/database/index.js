@@ -6,7 +6,7 @@ import Client from '../app/models/Client';
 import ReportHistory from '../app/models/ReportHistory';
 import Spending from '../app/models/Spending';
 import Spendingtypes from '../app/models/SpendingTypes';
-import ValuesReceived from '../app/models/ValuesReceived';
+import Payment from '../app/models/Payment';
 
 import databaseConfig from '../config/database';
 
@@ -17,7 +17,7 @@ const models = [
   ReportHistory,
   Spending,
   Spendingtypes,
-  ValuesReceived,
+  Payment,
 ];
 class Database {
   constructor() {

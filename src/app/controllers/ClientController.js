@@ -1,7 +1,7 @@
 import { isAfter, parseISO } from 'date-fns';
 import Client from '../models/Client';
 import ClientValidation from '../validations/ClientValidation';
-import ValuesReceived from '../models/ValuesReceived';
+import Payment from '../models/Payment';
 
 class ClientController {
   async store(req, res) {
@@ -71,7 +71,7 @@ class ClientController {
       });
     }
 
-    const values = await ValuesReceived.findOne({
+    const values = await Payment.findOne({
       where: { client_id: client.id },
     });
 

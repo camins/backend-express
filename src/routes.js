@@ -8,6 +8,7 @@ import EmployeeController from './app/controllers/EmployeeController';
 import SpendingTypesController from './app/controllers/SpendingTypesController';
 import ClientController from './app/controllers/ClientController';
 import SpendingController from './app/controllers/SpendingController';
+import PaymentController from './app/controllers/PaymentController';
 
 const routes = new Router();
 
@@ -36,5 +37,10 @@ routes.post('/spending', SpendingController.store);
 routes.put('/spending/:id', SpendingController.update);
 routes.get('/spending', SpendingController.index);
 routes.delete('/spending/:id', SpendingController.delete);
+
+routes.post('/payment', PaymentController.store);
+routes.put('/payment/:id', PaymentController.update);
+routes.get('/payment', PaymentController.index);
+routes.delete('/payment/:id', PaymentController.delete);
 
 export default routes;

@@ -2,31 +2,26 @@ import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import { startOfDay } from 'date-fns';
 import ReportHistory from '../models/ReportHistory';
-import Spending from '../models/Spending';
+import Payment from '../models/Payment';
 
-class SpendingValidation {
+class PaymentValidation {
   async validateInsert(req) {
     let ret;
 
     const schema = Yup.object().shape({
       date: Yup.date().required('Informe a data'),
       value: Yup.number()
-        .required('Informe o valor do gasto')
+        .required('Informe o valor recebido')
         .positive('O valor deve ser positivo'),
-      comment: Yup.string(),
+      client_id: Yup.number().required(
+        'Informe o cliente que efetuou esse pagamento'
+      ),
     });
 
     await schema.validate(req.body, { abortEarly: false }).catch(err => {
       ret = err.errors;
     });
 
-    if (!ret) {
-      const { type_id } = req.body;
-
-      if (!type_id) {
-        ret = ['Informe um tipo de gasto'];
-      }
-    }
     return ret;
   }
 
@@ -36,31 +31,31 @@ class SpendingValidation {
     const schema = Yup.object().shape({
       date: Yup.date(),
       value: Yup.number().positive('O valor deve ser positivo'),
-      comment: Yup.string(),
+      client_id: Yup.number(),
     });
 
     await schema.validate(req.body, { abortEarly: false }).catch(err => {
       ret = err.errors;
     });
 
-    const spending = await Spending.findByPk(req.params.id);
-    if (!spending) {
-      ret += ['Gasto não encontrado'];
+    const payment = await Payment.findByPk(req.params.id);
+    if (!payment) {
+      ret += ['Pagamento não encontrado'];
     }
 
-    if (!ret && spending) {
-      ret = this.checkHistory(spending);
+    if (!ret && payment) {
+      ret = this.checkHistory(payment);
     }
 
     return ret;
   }
 
-  async checkHistory(spending) {
+  async checkHistory(payment) {
     let ret;
     const history = await ReportHistory.findOne({
       where: {
         date: {
-          [Op.gte]: startOfDay(spending.date),
+          [Op.gte]: startOfDay(payment.date),
         },
       },
     });
@@ -75,4 +70,4 @@ class SpendingValidation {
   }
 }
 
-export default new SpendingValidation();
+export default new PaymentValidation();
