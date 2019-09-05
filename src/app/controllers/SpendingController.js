@@ -1,3 +1,5 @@
+import { parseISO, endOfDay, startOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 import Spending from '../models/Spending';
 import SpendingValidation from '../validations/SpendingValidation';
 import SpendingType from '../models/SpendingTypes';
@@ -22,7 +24,12 @@ class SpendingController {
     const spend = await Spending.findOne({
       where: {
         type_id,
-        date,
+        date: {
+          [Op.between]: [startOfDay(parseISO(date)), endOfDay(parseISO(date))],
+        },
+        comment: {
+          [Op.is]: null,
+        },
       },
     });
 
