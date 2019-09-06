@@ -5,6 +5,7 @@ class ReportHistory extends Model {
     super.init(
       {
         date: Sequelize.DATE,
+        accountValue: Sequelize.DOUBLE,
       },
       {
         sequelize,

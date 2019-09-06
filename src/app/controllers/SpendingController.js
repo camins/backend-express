@@ -68,7 +68,7 @@ class SpendingController {
     const spending = await Spending.findAll({
       where: {
         date: {
-          [Op.gte]: startOfDay(parseISO(date)),
+          [Op.between]: [endOfDay(parseISO(date)), endOfDay(new Date())],
         },
       },
       include: [

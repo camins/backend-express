@@ -9,6 +9,7 @@ import SpendingTypesController from './app/controllers/SpendingTypesController';
 import ClientController from './app/controllers/ClientController';
 import SpendingController from './app/controllers/SpendingController';
 import PaymentController from './app/controllers/PaymentController';
+import ReportHistoryController from './app/controllers/ReportHistoryController';
 
 const routes = new Router();
 
@@ -42,5 +43,11 @@ routes.post('/payment', PaymentController.store);
 routes.put('/payment/:id', PaymentController.update);
 routes.get('/payment', PaymentController.index);
 routes.delete('/payment/:id', PaymentController.delete);
+
+routes.post('/reportHistory/first', ReportHistoryController.storeFirst);
+routes.post('/reportHistory/', ReportHistoryController.store);
+routes.get('/reportHistory/last', ReportHistoryController.indexLast);
+routes.get('/reportHistory/', ReportHistoryController.index);
+routes.put('/reportHistory/:id', ReportHistoryController.update);
 
 export default routes;

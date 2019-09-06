@@ -57,7 +57,7 @@ class PaymentController {
     const payment = await Payment.findAll({
       where: {
         date: {
-          [Op.gte]: startOfDay(parseISO(date)),
+          [Op.between]: [endOfDay(parseISO(date)), endOfDay(new Date())],
         },
       },
       include: [

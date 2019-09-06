@@ -11,6 +11,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      account_value: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
