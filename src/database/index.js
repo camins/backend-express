@@ -7,6 +7,7 @@ import ReportHistory from '../app/models/ReportHistory';
 import Spending from '../app/models/Spending';
 import Spendingtypes from '../app/models/SpendingTypes';
 import Payment from '../app/models/Payment';
+import File from '../app/models/File';
 
 import databaseConfig from '../config/database';
 
@@ -14,6 +15,7 @@ const models = [
   User,
   Employee,
   Client,
+  File,
   ReportHistory,
   Spending,
   Spendingtypes,

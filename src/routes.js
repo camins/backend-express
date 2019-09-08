@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import multer from 'multer';
+import multerConfig from './config/multer';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -10,8 +12,10 @@ import ClientController from './app/controllers/ClientController';
 import SpendingController from './app/controllers/SpendingController';
 import PaymentController from './app/controllers/PaymentController';
 import ReportHistoryController from './app/controllers/ReportHistoryController';
+import FileController from './app/controllers/FileController';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
@@ -49,5 +53,7 @@ routes.post('/reportHistory/', ReportHistoryController.store);
 routes.get('/reportHistory/last', ReportHistoryController.indexLast);
 routes.get('/reportHistory/', ReportHistoryController.index);
 routes.put('/reportHistory/:id', ReportHistoryController.update);
+
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
